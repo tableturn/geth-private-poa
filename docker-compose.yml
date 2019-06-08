@@ -4,8 +4,6 @@ services:
   # The bootnode is the rendez-vous point for all other nodes.
   bootnode:
     image: ethereum/client-go:alltools-release-1.8
-    restart: on-failure
-    hostname: bootstrap
     ports:
       - 30303:30303
     volumes:
@@ -17,7 +15,6 @@ services:
   # but it's not sealing.
   node:
     image: ethereum/client-go:alltools-release-1.8
-    restart: on-failure
     links: [bootnode]
     ports:
       - 8544-8546:8544-8546
@@ -26,55 +23,54 @@ services:
       - ./keystore:/keystore:ro
       - ./genesis.json:/genesis.json:ro
       - /etc/localtime:/etc/localtime:ro
-    command: /scripts/node.sh 0x627306090abab3a6e1400e9345bc60c78a8bef57
+    command: /scripts/node.sh 0x71b3D7405080197fC03cA82bCDd1764F1e14ABf2
   # Sealer nodes are workers that commit blocks constantly.
   sealer-one:
     image: ethereum/client-go:alltools-release-1.8
-    restart: on-failure
     links: [bootnode]
     volumes:
       - ./scripts:/scripts:ro
       - ./keystore:/keystore:ro
       - ./genesis.json:/genesis.json:ro
       - /etc/localtime:/etc/localtime:ro
-    command: /scripts/sealer.sh 0xf17f52151ebef6c7334fad080c5704d77216b732
-  sealer-two:
-    image: ethereum/client-go:alltools-release-1.8
-    restart: on-failure
-    links: [bootnode]
-    volumes:
-      - ./scripts:/scripts:ro
-      - ./keystore:/keystore:ro
-      - ./genesis.json:/genesis.json:ro
-      - /etc/localtime:/etc/localtime:ro
-    command: /scripts/sealer.sh 0xc5fdf4076b8f3a5357c5e395ab970b5b54098fef
-  sealer-three:
-    image: ethereum/client-go:alltools-release-1.8
-    restart: on-failure
-    links: [bootnode]
-    volumes:
-      - ./scripts:/scripts:ro
-      - ./keystore:/keystore:ro
-      - ./genesis.json:/genesis.json:ro
-      - /etc/localtime:/etc/localtime:ro
-    command: /scripts/sealer.sh 0x821aea9a577a9b44299b9c15c88cf3087f3b5544
-  sealer-four:
-    image: ethereum/client-go:alltools-release-1.8
-    restart: on-failure
-    links: [bootnode]
-    volumes:
-      - ./scripts:/scripts:ro
-      - ./keystore:/keystore:ro
-      - ./genesis.json:/genesis.json:ro
-      - /etc/localtime:/etc/localtime:ro
-    command: /scripts/sealer.sh 0x0d1d4e623d10f9fba5db95830f7d3839406c6af2
-  sealer-five:
-    image: ethereum/client-go:alltools-release-1.8
-    restart: on-failure
-    links: [bootnode]
-    volumes:
-      - ./scripts:/scripts:ro
-      - ./keystore:/keystore:ro
-      - ./genesis.json:/genesis.json:ro
-      - /etc/localtime:/etc/localtime:ro
-    command: /scripts/sealer.sh 0x2932b7a2355d6fecc4b5c0b6bd44cc31df247a2e
+    command: /scripts/sealer.sh 0x6c319A49787d10a6e0c72a25DB06cc555370c4DD
+  # sealer-two:
+  #   image: ethereum/client-go:alltools-release-1.8
+  #   restart: on-failure
+  #   links: [bootnode]
+  #   volumes:
+  #     - ./scripts:/scripts:ro
+  #     - ./keystore:/keystore:ro
+  #     - ./genesis.json:/genesis.json:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #   command: /scripts/sealer.sh 0x9E9581516679F57Aa7eb81D278841DF6aB93902B
+  # sealer-three:
+  #   image: ethereum/client-go:alltools-release-1.8
+  #   restart: on-failure
+  #   links: [bootnode]
+  #   volumes:
+  #     - ./scripts:/scripts:ro
+  #     - ./keystore:/keystore:ro
+  #     - ./genesis.json:/genesis.json:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #   command: /scripts/sealer.sh 0x71b3D7405080197fC03cA82bCDd1764F1e14ABf2
+  # sealer-four:
+  #   image: ethereum/client-go:alltools-release-1.8
+  #   restart: on-failure
+  #   links: [bootnode]
+  #   volumes:
+  #     - ./scripts:/scripts:ro
+  #     - ./keystore:/keystore:ro
+  #     - ./genesis.json:/genesis.json:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #   command: /scripts/sealer.sh 0x0Cbbb79B02449ea575F6185dd3C541E9ab8d8182
+  # sealer-five:
+  #   image: ethereum/client-go:alltools-release-1.8
+  #   restart: on-failure
+  #   links: [bootnode]
+  #   volumes:
+  #     - ./scripts:/scripts:ro
+  #     - ./keystore:/keystore:ro
+  #     - ./genesis.json:/genesis.json:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #   command: /scripts/sealer.sh 0x563A5fC36b990D68bBCaAA206C281BfEc31134AB
