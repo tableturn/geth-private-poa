@@ -3,7 +3,7 @@ version: "3"
 services:
   # The bootnode is the rendez-vous point for all other nodes.
   bootnode:
-    image: ethereum/client-go:alltools-release-1.8
+    image: ethereum/client-go:alltools-release-1.10
     ports:
       - 30303:30303
     volumes:
@@ -14,7 +14,7 @@ services:
   # The node container is our entry point to issue RPC commands
   # but it's not sealing.
   node:
-    image: ethereum/client-go:alltools-release-1.8
+    image: ethereum/client-go:alltools-release-1.10
     links: [bootnode]
     ports:
       - 8544-8546:8544-8546
@@ -26,7 +26,7 @@ services:
     command: /scripts/node.sh 0x71b3D7405080197fC03cA82bCDd1764F1e14ABf2
   # Sealer nodes are workers that commit blocks constantly.
   sealer-one:
-    image: ethereum/client-go:alltools-release-1.8
+    image: ethereum/client-go:alltools-release-1.10
     links: [bootnode]
     volumes:
       - ./scripts:/scripts:ro
@@ -35,7 +35,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
     command: /scripts/sealer.sh 0x6c319A49787d10a6e0c72a25DB06cc555370c4DD
   # sealer-two:
-  #   image: ethereum/client-go:alltools-release-1.8
+  #   image: ethereum/client-go:alltools-release-1.10
   #   restart: on-failure
   #   links: [bootnode]
   #   volumes:
@@ -45,7 +45,7 @@ services:
   #     - /etc/localtime:/etc/localtime:ro
   #   command: /scripts/sealer.sh 0x9E9581516679F57Aa7eb81D278841DF6aB93902B
   # sealer-three:
-  #   image: ethereum/client-go:alltools-release-1.8
+  #   image: ethereum/client-go:alltools-release-1.10
   #   restart: on-failure
   #   links: [bootnode]
   #   volumes:
@@ -55,7 +55,7 @@ services:
   #     - /etc/localtime:/etc/localtime:ro
   #   command: /scripts/sealer.sh 0x71b3D7405080197fC03cA82bCDd1764F1e14ABf2
   # sealer-four:
-  #   image: ethereum/client-go:alltools-release-1.8
+  #   image: ethereum/client-go:alltools-release-1.10
   #   restart: on-failure
   #   links: [bootnode]
   #   volumes:
@@ -65,7 +65,7 @@ services:
   #     - /etc/localtime:/etc/localtime:ro
   #   command: /scripts/sealer.sh 0x0Cbbb79B02449ea575F6185dd3C541E9ab8d8182
   # sealer-five:
-  #   image: ethereum/client-go:alltools-release-1.8
+  #   image: ethereum/client-go:alltools-release-1.10
   #   restart: on-failure
   #   links: [bootnode]
   #   volumes:
